@@ -228,14 +228,14 @@ class Transaction {
    * sign a transaction with a given private key
    * @param {Buffer} privateKey
    */
-  sign (privateKey) {
-    const msgHash = this.hash(false)
-    const sig = ethUtil.ecsign(msgHash, privateKey)
-    if (this._chainId > 0) {
-      sig.v += this._chainId * 2 + 8
-    }
-    Object.assign(this, sig)
-  }
+ async sign (privateKey) {
+   const msgHash = this.hash(false)
+   const sig = await ethUtil.ecsign(msgHash, privateKey)
+   if (this._chainId > 0) {
+     sig.v += this._chainId * 2 + 8
+   }
+   Object.assign(this, sig)
+ }
 
   /**
    * The amount of gas paid for the data in this tx
